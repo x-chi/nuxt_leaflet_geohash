@@ -1,0 +1,23 @@
+version: '3.9' # docker-composeのバージョン選択
+services:
+  frontend:
+    # サービス名
+    build:
+      # Dockerfileの設定
+      context: . # Dockerfileを置いているディレクトリ
+      dockerfile: Dockerfile # Dockerfileのファイル名
+    working_dir: /app # 作業ディレクトリを指定
+    # volumes:
+    # 以下をviteのプロジェクト名に変更する
+    # - ./docker-vite:/app
+    # 以下を追加する
+    # - node_modules:/app/node_modules # 特定のパスを独立した名前付きボリュームとして定義
+    tty: true # コンテナを正常終了するのを防ぐ
+    ports:
+      - '3000:3000' # 公開用のポート指定。ホスト側:コンテナ側
+      - '24678:24678' # HMR用のポートを追加
+    command: yarn dev # viteの実行コマンド
+
+# volumes:
+#   # 名前付きボリュームの設定
+#   node_modules:
